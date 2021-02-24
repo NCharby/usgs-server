@@ -1,10 +1,11 @@
 [ignore]
+.*/build/.*
+.*/dist/.*
 
 [include]
-./flow-typed
 
 [libs]
-./flow-typed
+flow-typed
 
 [lints]
 

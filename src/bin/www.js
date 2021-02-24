@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('server:server');
+var app = require('../app').default;
 var http = require('http');
+var CONFIG = require('../config/env.js').default
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3003');
+var port = normalizePort(CONFIG.PORT);
 app.set('port', port);
 
 /**
@@ -83,8 +79,5 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+  console.log('Listening on: ', port)
 }
