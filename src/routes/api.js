@@ -3,6 +3,7 @@ import { Router } from 'express';
 import asyncHandler from "express-async-handler";
 
 import { fetchLatLng } from './geocode/geocode.route'
+import { fetchQuakeData } from './usgs/usgs.route'
 
 
 import express, {
@@ -12,11 +13,10 @@ import express, {
 
 const AppRouter: Router<$Request, $Response> = Router();
 
-AppRouter.get('/', function(req, res) {
-  res.send('hit');
-});
-
 AppRouter.route('/latlng')
   .get( asyncHandler(fetchLatLng))
+
+AppRouter.route('/quakes')
+  .get( asyncHandler(fetchQuakeData))
 
 export default AppRouter
