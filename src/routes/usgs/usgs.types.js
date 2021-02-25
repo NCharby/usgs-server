@@ -28,11 +28,22 @@ export type $USGSParams = {
     maxradiuskm: number
 }
 
-export type $UIRequest = {
+export type $UIRequestCoords = {|
     format?: 'geojson',
     starttime: string,
     endtime: string,
     minmagnitude: number,
+    maxradiuskm: number,
     coordinates: Array<number>,
-    maxradiuskm: number
-}
+    search: ?string
+|}
+
+export type $UIRequestSearch = {|
+    format?: 'geojson',
+    starttime: string,
+    endtime: string,
+    minmagnitude: number,
+    maxradiuskm: number,
+    coordinates: ?Array<number>,
+    search: string
+|}

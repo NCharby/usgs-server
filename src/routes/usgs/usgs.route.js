@@ -1,6 +1,7 @@
 // @flow
 
 import { GetQuakes } from "./usgs.model";
+import { GetLatLng } from '../geocode/geocode.model'
 
 import express, {
   type $Request,
@@ -11,13 +12,14 @@ import {
     type $USGSResponse,
     type $USGSFeature,
     type $USGSParams,
-    type $UIRequest
+    type $UIRequestCoords,
+    type $UIRequestSearch
 } from './usgs.types.js'
 
 //yeah, this is kinda lazy
 //type the req to only be what we want
 type UIQuakeQuery = {
-    query: $UIRequest,
+    query: $UIRequestCoords | $UIRequestSearch,
     url: string
 }
 
@@ -26,14 +28,25 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
         starttime,
         endtime,
         minmagnitude,
-        coordinates,
         maxradiuskm
-    }: $UIRequest = req.query
+    }: $UIRequestCoords | $UIRequestSearch = req.query
 
     try {
-        const latitude = coordinates[0]
-        const longitude = coordinates[1]
-
+        let coordinates: Array<number>;
+        //where is this place?
+        if(req.query.search){
+            const { features } = await GetLatLng(req.query.search)
+            coordinates = features[0].geometry.coordinates
+        } else {
+            //the UI told us
+            //$FlowFixMe
+            coordinates = req.query.coordinates
+        }
+        //$FlowFixMe
+        const longitude = coordinates[0]
+        //$FlowFixMe
+        const latitude = coordinates[1] 
+        
         const d: $USGSResponse = await GetQuakes({
             starttime,
             endtime,
@@ -42,7 +55,8 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
             longitude,
             maxradiuskm
         })
-        res.send(d)
+        res.send(d.features)
+
     } catch (error) {
         console.error(req.url, error.message)
         return res.status(401).send(error.message)
