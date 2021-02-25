@@ -4,6 +4,7 @@ import asyncHandler from "express-async-handler";
 
 import { fetchLatLng } from './geocode/geocode.route'
 import { fetchQuakeData } from './usgs/usgs.route'
+import { fetchConfigScript } from './config/config.route'
 
 
 import express, {
@@ -18,5 +19,7 @@ AppRouter.route('/latlng')
 
 AppRouter.route('/quakes')
   .get( asyncHandler(fetchQuakeData))
+
+AppRouter.get('/config', fetchConfigScript)
 
 export default AppRouter
