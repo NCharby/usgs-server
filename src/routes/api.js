@@ -1,9 +1,22 @@
-var express = require('express');
-var router = express.Router();
+// @flow
+import { Router } from 'express';
+import asyncHandler from "express-async-handler";
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+import { fetchLatLng } from './geocode/geocode.route'
+
+
+import express, {
+  type $Request,
+  type $Response
+} from 'express';
+
+const AppRouter: Router<$Request, $Response> = Router();
+
+AppRouter.get('/', function(req, res) {
   res.send('hit');
 });
 
-module.exports = router;
+AppRouter.route('/latlng')
+  .get( asyncHandler(fetchLatLng))
+
+export default AppRouter

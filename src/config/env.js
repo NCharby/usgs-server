@@ -24,5 +24,5 @@ export default {
     PORT,
     IP,
     API_ROOT,
-    MAPBOX_TOKEN: ENV_FILE.MAPBOX_TOKEN
+    MAPBOX_TOKEN: ENV_FILE.parsed.MAPBOX_TOKEN
 }

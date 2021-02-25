@@ -1,6 +1,5 @@
 {
-    "exec": "npm run dev",
-    "watch": ["src/*", "public/*"],
-    "ext": "js, html, css, json",
-    "ignore": ["**/__tests__/**", "*.test.js", "*.spec.js"]
-  }
+  "exec": "npm run dev",
+  "watch": [ "src/*" ],
+  "ignore": [ "**/__tests__/**", "*.test.js", "*.spec.js" ] 
+}

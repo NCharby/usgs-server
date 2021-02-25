@@ -15,7 +15,7 @@ import path from 'path';
 import fs from 'fs';
 
 import ErrorMiddleware from './middlewares/error.middleware'
-import AppRouter from './routes/api';
+import ApiRouter from './routes/api';
 
 const app: express$Application<express$Request,express$Response> = express();
 
@@ -23,7 +23,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(`${CONFIG.API_ROOT}`, AppRouter)
+app.use(`${CONFIG.API_ROOT}`, ApiRouter)
 
 app.use(cookieParser());
 
