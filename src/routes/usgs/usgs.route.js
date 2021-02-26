@@ -36,6 +36,13 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
         //where is this place?
         if(req.query.search){
             const { features } = await GetLatLng(req.query.search)
+            if(!features[0]){
+                res.send({
+                    //$FlowFixMe Send back the coords if we're in the ocean
+                    coordinates: req.query.search.split(', '),
+                    quakes: []
+                })
+            }
             coordinates = features[0].geometry.coordinates
         } else {
             //the UI told us
