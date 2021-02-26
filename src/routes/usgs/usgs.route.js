@@ -58,7 +58,7 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
         
         res.send({
             coordinates,
-            quakes: d.features.slice(0, 100)
+            quakes: d.features.slice(0, 1000)
         })
 
     } catch (error) {
