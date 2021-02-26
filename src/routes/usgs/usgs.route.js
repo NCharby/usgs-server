@@ -30,7 +30,7 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
         minmagnitude,
         maxradiuskm
     }: $UIRequestCoords | $UIRequestSearch = req.query
-
+    
     try {
         let coordinates: Array<number>;
         //where is this place?
@@ -55,7 +55,11 @@ export async function fetchQuakeData(req: UIQuakeQuery, res: $Response): any {
             longitude,
             maxradiuskm
         })
-        res.send(d.features)
+        
+        res.send({
+            coordinates,
+            quakes: d.features.slice(0, 100)
+        })
 
     } catch (error) {
         console.error(req.url, error.message)
