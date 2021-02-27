@@ -11,7 +11,7 @@ const ENV_FILE: $ENV_FILE = require('dotenv').config()
 
 const PORT: number = ENV_FILE.parsed.PORT != null
   ? parseInt(ENV_FILE.parsed.PORT, 10)
-  : 5001;
+  : 80;
 
 const API_ROOT = "/api/0.1";
 
