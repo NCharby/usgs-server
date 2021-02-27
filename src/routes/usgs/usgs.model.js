@@ -35,24 +35,29 @@ export async function GetQuakes(query: $USGSParams): Promise<$USGSResponse> {
 export function GetQuakeMeta(quakes: Array<$USGSFeature>): QuakeMeta {
     let min = 100;
     let max = 0;
-    let total = 0;
-    //there's likely a tidyer way to do this,
-    // but this is readable
-    quakes.forEach( q => {
-        const { properties } = q
-        //build a sum for the mean
-        total += properties.mag   
-        //test for min
-        if(properties.mag < min) min = properties.mag
-        //and max
-        if(properties.mag > max) max = properties.mag
+    let median = 0
+
+    const sorted = quakes.sort((a, b) =>{
+        //grab the min max while we're looping
+        if(a.properties.mag < min) min = a.properties.mag
+        if(a.properties.mag > max) max = a.properties.mag
+        return a.properties.mag - b.properties.mag
     })
+
+    const mid = (sorted.length / 2)
+    if(sorted.length % 2){
+        median = sorted[mid]
+    } else {
+        median = (sorted[mid - 1].properties.mag + sorted[mid].properties.mag) / 2
+    }
+
 
     return {
         min,
         max,
-        mean: (total / quakes.length).toFixed(2),
-        count: quakes.length
+        //$FlowFixMe
+        median,
+        count: quakes.length,
     }
 
 }
@@ -61,6 +66,6 @@ export function GetQuakeMeta(quakes: Array<$USGSFeature>): QuakeMeta {
 export const emptyMeta: QuakeMeta = {
     min: 0,
     max: 0,
-    mean: 0,
+    median: 0,
     count: 0
 }
