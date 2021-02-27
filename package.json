@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./dist/bin/www",
+    "start": "npm run transpile && node ./dist/bin/www",
     "server": "node ./dist/bin/www",
     "transpile": "babel ./src --out-dir dist",
     "dev": "NODE_ENV=development npm-run-all build server",
