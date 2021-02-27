@@ -38,7 +38,7 @@ export type $UIRequestSearch = {|
 |}
 
 export type QuakeMeta = {
-    mean: number,
+    mean: number | string,
     count: number,
     min: number,
     max: number

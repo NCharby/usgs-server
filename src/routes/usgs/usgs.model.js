@@ -51,7 +51,7 @@ export function GetQuakeMeta(quakes: Array<$USGSFeature>): QuakeMeta {
     return {
         min,
         max,
-        mean: total / quakes.length,
+        mean: (total / quakes.length).toFixed(2),
         count: quakes.length
     }
 
