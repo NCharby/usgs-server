@@ -28,22 +28,18 @@ export type $USGSParams = {
     maxradiuskm: number
 }
 
-export type $UIRequestCoords = {|
-    format?: 'geojson',
-    starttime: string,
-    endtime: string,
-    minmagnitude: number,
-    maxradiuskm: number,
-    coordinates: Array<number>,
-    search: ?string
-|}
-
 export type $UIRequestSearch = {|
     format?: 'geojson',
     starttime: string,
     endtime: string,
     minmagnitude: number,
     maxradiuskm: number,
-    coordinates: ?Array<number>,
     search: string
 |}
+
+export type QuakeMeta = {
+    mean: number,
+    count: number,
+    min: number,
+    max: number
+}
