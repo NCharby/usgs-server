@@ -8,7 +8,7 @@
     "transpile": "babel ./src --out-dir dist",
     "dev": "NODE_ENV=development npm-run-all build server",
     "build": "npm-run-all clean transpile",
-    "prod": "NODE_ENV=production npm-run-all clean build server:prod",
+    "prod": "NODE_ENV=production npm-run-all clean build server",
     "watch": "nodemon",
     "test": "jest --runInBand",
     "clean": "rimraf dist",

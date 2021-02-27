@@ -14,7 +14,7 @@ import express, {
 
 const AppRouter: Router<$Request, $Response> = Router();
 
-AppRouter.route('/latlng')
+AppRouter.route('/lnglat')
   .get( asyncHandler(fetchLatLng))
 
 AppRouter.route('/quakes')

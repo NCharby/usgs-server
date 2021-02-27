@@ -37,6 +37,16 @@ export function GetQuakeMeta(quakes: Array<$USGSFeature>): QuakeMeta {
     let max = 0;
     let median = 0
 
+    if(!quakes.length) return emptyMeta
+    if(quakes.length === 1) { //edge case
+        return {
+            min: quakes[0].properties.mag,
+            max: quakes[0].properties.mag,
+            median: quakes[0].properties.mag,
+            count: 1
+        }
+    }
+
     const sorted = quakes.sort((a, b) =>{
         //grab the min max while we're looping
         if(a.properties.mag < min) min = a.properties.mag
@@ -44,9 +54,10 @@ export function GetQuakeMeta(quakes: Array<$USGSFeature>): QuakeMeta {
         return a.properties.mag - b.properties.mag
     })
 
-    const mid = (sorted.length / 2)
-    if(sorted.length % 2){
-        median = sorted[mid]
+    const mid = Math.floor(sorted.length / 2)
+    console.log(sorted.length, mid, sorted[mid])
+    if(sorted.length % 2 !== 0){
+        median = sorted[mid].properties.mag
     } else {
         median = (sorted[mid - 1].properties.mag + sorted[mid].properties.mag) / 2
     }

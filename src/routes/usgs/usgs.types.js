@@ -43,3 +43,9 @@ export type QuakeMeta = {
     min: number,
     max: number
 }
+
+export type Response = {
+    meta: QuakeMeta,
+    coodinates: Array<number>,
+    quakes: Array<$USGSFeature>
+}
